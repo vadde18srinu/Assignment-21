@@ -75,13 +75,12 @@ pairs.panels(Rtrain[2:6],gap=0,
 
 # principal component analysis
 pc<-prcomp(Rtrain[2:6], center = TRUE, scale. = TRUE)
-pc
+print(pc)
 attributes(pc)
 pc$center
 pc$scale
 pc$x
 pc$sdev
-print(pc)
 summary(pc)
 
 # PCs plot (we can see below in plot correlation made "0" by PCA)
@@ -89,15 +88,18 @@ pairs.panels(pc$x, gap=0,
              bg=c("red","yellow","blue")[Rtrain$protein], pch=21)
 
 # By plots
-g<-ggplot(pc,
+library(devtools)
+library(ggbiplot)
+g<-ggbiplot(pc,
           obs.scale=1, 
           var.scale=1, 
           groups=Rtrain$protein, 
           elipse=TRUE, 
           circle=TRUE, 
-          ellipse.prob=0.70)
+          ellipse.prob=0.67)
 g<-g+scale_alpha_discrete(name='')
 g<-g+theme(legend.direction='horizontal', legend.position = 'top')
+
 
 
 
